@@ -20,7 +20,7 @@ type Task struct {
 	status    TaskStatus
 	events    []DomainEvent
 	lastError string
-	retry     Retry
+	retry     RetryPolicy
 }
 
 type Priority int
@@ -30,19 +30,6 @@ const (
 	PriorityMedium
 	PriorityLow
 )
-
-type Retry struct {
-	Policy      Policy
-	ScheduledAt time.Time
-	Duration    time.Duration
-	History     []map[int]History
-}
-
-type Policy struct {
-	maxAttempts      int
-	baseDelay        int
-	backoffStrategry BackoffStrategy
-}
 
 type (
 	Attempt         struct{}
